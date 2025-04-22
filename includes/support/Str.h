@@ -169,6 +169,29 @@ namespace espkit::support {
             return value;
         }
 
+        /**
+         * Run function on each exploded substring
+         * @tparam Callback
+         * @param sep
+         * @param callback
+         */
+        template<typename Callback>
+        void explode(String sep, Callback callback) {
+            int16_t fromIndex = 0;
+
+            do {
+                const int16_t index = s.indexOf(sep, fromIndex);
+
+                if (index < 0)
+                    callback(s.substring(fromIndex));
+                else
+                    callback(s.substring(fromIndex, index));
+
+                fromIndex = index;
+            } while (fromIndex >= 0);
+
+        }
+
     protected:
         String s;
     };

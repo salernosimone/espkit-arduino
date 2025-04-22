@@ -34,7 +34,7 @@ public:
         this->reason = reason;
 
         if (reason != "")
-            ESP_LOGE("eloquent", "%s", reason.c_str());
+            ESP_LOGE("espkit", "%s", reason.c_str());
 
         return *this;
     }

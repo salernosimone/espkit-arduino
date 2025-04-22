@@ -1,20 +1,19 @@
 #pragma once
 
-#include <esp_camera.h>
+#include "./Setting.h"
 
-namespace cam::sensor {
+namespace espkit::cam::sensor {
     /**
      * Set sensor special effect
      */
-    class SpecialEffect {
+    class SpecialEffect : public Setting {
     public:
-        sensor_t *sensor;
 
         /**
          * Constructor
          * @param s
          */
-        SpecialEffect(sensor_t *s) : sensor(s) {
+        SpecialEffect() : Setting("effect", [](sensor_t *s, float x) { s->set_special_effect(s, x); }) {
 
         }
 
@@ -71,20 +70,24 @@ namespace cam::sensor {
          * Set special effect from value
          * @param effect
          */
-        void set(uint8_t effect) {
-            sensor_t *sensor = esp_camera_sensor_get();
-            sensor->set_special_effect(sensor, effect);
+        virtual void set(float effect) {
+            setter(esp_camera_sensor_get(), effect);
         }
 
         /**
          * Set special effect from value
          * @param effect
          */
-        void set(String effect) {
+        void set(const String &effect) {
             static String effects[] = {"none", "negative", "gray", "red", "green", "blue", "sepia"};
 
+            if (effect == "") {
+                set(0);
+                return;
+            }
+
             for (uint8_t i = 0; i < 7; i++) {
-                if (effects[i] == effect) {
+                if (effect.startsWith(effects[i])) {
                     set(i);
                     return;
                 }

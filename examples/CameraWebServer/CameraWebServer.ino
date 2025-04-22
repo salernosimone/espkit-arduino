@@ -29,7 +29,7 @@ void setup() {
     camera.config.pinout.prompt();
     camera.config.pixformat.jpeg();
     camera.config.quality.high();
-    camera.config.resolution.qvga();
+    camera.config.resolution.vga();
 
     // init camera and raise error if something goes wrong
     camera.begin();

@@ -12,7 +12,7 @@
 
 
 void setup() {
-  delay(3000);
+    delay(3000);
     Serial.begin(115200);
     ESP_LOGI("APP", "Start");
 

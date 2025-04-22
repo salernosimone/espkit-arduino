@@ -52,21 +52,11 @@ namespace cam {
                 AssetResponse response(request, html);
 
                 response.send();
-            } else if (request->path == "/jpeg") {
-                Response response(request);
-
-                auto frame = camera.grab();
-
-                if (frame) {
-                    response.ok();
-                    response.cors();
-                    response.jpeg(frame.u8(), frame.size());
-                } else {
-                    response.serverError("Can't grab frame");
-                }
             } else if (request->path == "/configure") {
                 Response response(request);
-                String update = request->getQueryParam("sensor");
+                const String key = request->getQueryParam("k");
+                const String val = request->getQueryParam("v");
+                const String update = key + "=" + val;
 
                 camera.sensor.set(update);
                 response.ok(update);

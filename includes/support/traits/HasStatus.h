@@ -1,5 +1,4 @@
-#ifndef ELOQUENTESP32_INCLUDE_HASSTATUS_H
-#define ELOQUENTESP32_INCLUDE_HASSTATUS_H
+#pragma once
 
 #include "../Str.h"
 #include "../Status.h"
@@ -92,5 +91,3 @@ namespace espkit::support {
         }
     };
 }
-
-#endif //ELOQUENTESP32_INCLUDE_HASSTATUS_H
