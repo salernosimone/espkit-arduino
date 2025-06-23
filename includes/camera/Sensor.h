@@ -82,8 +82,6 @@ namespace espkit::cam {
          */
         void set(const String &settings) {
             Str::from(settings).explode(" ", [this](const String &s) {
-                ESP_LOGI("tmp", "explode: %s, flip.name: %s", s.c_str(), flip.name.c_str());
-
                 const KV kv(s);
 
                 if (kv.key == specialEffect.name) specialEffect.set(kv.value);

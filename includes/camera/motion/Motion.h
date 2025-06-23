@@ -5,7 +5,7 @@
 #include <JPEGDEC.h>
 #include "../../../ignore/deprecated/Benchmark.h"
 #include "../../../ignore/deprecated/Throttle.h"
-#include "../../support/traits/HasStatus.h"
+#include "../../support/HasOpStatus.h"
 #include "./Config.h"
 #include "./JpegHandler.h"
 

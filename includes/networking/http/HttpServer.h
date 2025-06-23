@@ -4,7 +4,7 @@
 #include <WiFi.h>
 #include <ESPmDNS.h>
 #include "../../idf/xCore.h"
-#include "../../support/traits/HasStatus.h"
+#include "../../support/HasOpStatus.h"
 #include "./Request.h"
 #include "./Response.h"
 

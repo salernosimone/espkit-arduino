@@ -1,6 +1,10 @@
 #pragma once
 
-namespace espkit::support {
+#include <random>
+#include <string>
+#include <cctype>
+
+namespace esptoolkit {
     /**
      * String-related utilities
      */
@@ -15,6 +19,30 @@ namespace espkit::support {
         template<typename T>
         static Str from(T value) {
             return Str(String(value));
+        }
+
+        /**
+         * Generate random string
+         * @param length
+         * @return
+         */
+        static String random(const uint8_t length = 16) {
+            static const char alphanum[] =
+                    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    "abcdefghijklmnopqrstuvwxyz"
+                    "0123456789";
+            String s;
+
+            s.reserve(length);
+            randomSeed(millis());
+
+            // first characther is always upper letter
+            s += alphanum[::random(0, 26)];
+
+            for (uint8_t i = 1; i < length; i++)
+                s += alphanum[::random(0, 62)];
+
+            return s;
         }
 
         /**
@@ -109,6 +137,21 @@ namespace espkit::support {
         };
 
         /**
+         * Concat stop condition (generic)
+         * @tparam T
+         * @param condition
+         * @param value
+         * @return
+         */
+        template<typename T>
+        Str &concatIf(bool condition, T value) {
+            if (condition)
+                s += value;
+
+            return *this;
+        };
+
+        /**
          * Concat segments into a string
          * @tparam T
          * @tparam Args
@@ -158,13 +201,13 @@ namespace espkit::support {
             s.toLowerCase();
 
             if (contains("g"))
-                return value * 1000000000ULL;
+                return value * 1073741824ULL;
 
             if (contains("m"))
-                return value * 1000000;
+                return value * 1048576ULL;
 
             if (contains("k"))
-                return value * 1000;
+                return value * 1024;
 
             return value;
         }
@@ -182,14 +225,23 @@ namespace espkit::support {
             do {
                 const int16_t index = s.indexOf(sep, fromIndex);
 
-                if (index < 0)
+                if (index < 0) {
                     callback(s.substring(fromIndex));
-                else
+                    break;
+                } else
                     callback(s.substring(fromIndex, index));
 
-                fromIndex = index;
-            } while (fromIndex >= 0);
+                fromIndex = index + 1;
+            } while (fromIndex >= 0 && fromIndex < s.length());
 
+        }
+
+        /**
+         * Reserve memory
+         * @param size
+         */
+        inline void reserve(size_t size) {
+            s.reserve(size);
         }
 
     protected:

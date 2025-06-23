@@ -5,12 +5,10 @@
 namespace espkit::cam::resolution {
     static Definition yolo("yolo", FRAMESIZE_96X96, 96, 96);
     static Definition qqvga("qqvga", FRAMESIZE_QQVGA, 160, 120);
-    static Definition yoloxl("yoloxl", FRAMESIZE_128X128, 128, 128);
     static Definition qcif("qcif", FRAMESIZE_QCIF, 176, 144);
     static Definition hqvga("hqvga", FRAMESIZE_HQVGA, 240, 176);
     static Definition square("square", FRAMESIZE_240X240, 240, 240);
     static Definition qvga("qvga", FRAMESIZE_QVGA, 320, 240);
-    static Definition squarexl("squarexl", FRAMESIZE_320X320, 320, 320);
     static Definition cif("cif", FRAMESIZE_CIF, 400, 296);
     static Definition hvga("hvga", FRAMESIZE_HVGA, 480, 320);
     static Definition vga("vga", FRAMESIZE_VGA, 640, 480);
@@ -27,17 +25,14 @@ namespace espkit::cam::resolution {
     static Definition wqxga("wqxga", FRAMESIZE_WQXGA, 2560, 1600);
     static Definition p_fhd("p_fhd", FRAMESIZE_P_FHD, 1080, 1920);
     static Definition qsxga("qsxga", FRAMESIZE_QSXGA, 2560, 1920);
-    static Definition pi("pi", FRAMESIZE_5MP, 2592, 1944);
-    static const uint8_t supportedResolutionsCount = 25;
+    static const uint8_t supportedResolutionsCount = 23;
     static const Definition *supportedResolutions[] = {
             &yolo,
             &qqvga,
-            &yoloxl,
             &qcif,
             &hqvga,
             &square,
             &qvga,
-            &squarexl,
             &cif,
             &hvga,
             &vga,
@@ -53,8 +48,7 @@ namespace espkit::cam::resolution {
             &qhd,
             &wqxga,
             &p_fhd,
-            &qsxga,
-            &pi
+            &qsxga
     };
 
 }

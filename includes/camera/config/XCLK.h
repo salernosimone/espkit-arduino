@@ -1,7 +1,7 @@
 #ifndef ELOQUENTESP32_INCLUDE_XCLK_H
 #define ELOQUENTESP32_INCLUDE_XCLK_H
 
-namespace espkit::cam {
+namespace espkit::cam::config {
     /**
      * Set clock speed
      */
@@ -14,6 +14,16 @@ namespace espkit::cam {
          */
         XCLK() {
             fast();
+        }
+
+        /**
+         *
+         * @param value
+         */
+        void set(const String &value) {
+            if (value == "fast") fast();
+            else if (value == "slow") slow();
+            else ESP_LOGE("Camera.Config.XCLK", "Unkown speed: %s", String(value).c_str());
         }
 
         /**

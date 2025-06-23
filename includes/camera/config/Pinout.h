@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 #include <esp_camera.h>
-#include "../../idf/PreferencesKit.h"
+#include "../../PreferencesKit/PreferencesKit.h"
 #include "../../idf/SerialKit.h"
 #include "./Pinout/SupportedPinouts.h"
 #include "../../../ignore/deprecated/str.h"
@@ -13,7 +13,7 @@ using espkit::cam::pinout::supportedPinoutsCount;
 #define PREF_KEY_PINOUT_GUESS "pinout_guess"
 #define PREF_KEY_PINOUT_FOUND "pinout_found"
 
-namespace espkit::cam {
+namespace espkit::cam::config {
     /**
      * Set camera pins
      */
@@ -63,7 +63,7 @@ namespace espkit::cam {
 
             String name = serialkit.promptChoice("Select camera model:", (String *) choices, supportedPinoutsCount);
 
-            setFromName(name);
+            set(name);
             ESP_LOGI("Camera.Config.Pinout",
                      "You can skip this step in your sketch by adding camera.config.pinout.%s();", name.c_str());
 
@@ -73,7 +73,17 @@ namespace espkit::cam {
          * Set pinout from model name
          * @param name
          */
-        bool setFromName(const String &name) {
+        bool set(const String &name) {
+            if (name == "prompt") {
+                prompt();
+                return true;
+            }
+
+            if (name == "guess") {
+                guess();
+                return true;
+            }
+
             for (uint8_t i = 0; i < supportedPinoutsCount; i++) {
                 if (supportedPinouts[i]->matches(name)) {
                     supportedPinouts[i]->applyTo(config);
@@ -94,20 +104,20 @@ namespace espkit::cam {
         bool guess() {
             if (isSet())
                 return true;
-            
+
             String guessed = guessedName();
 
             // restore guessed pinout, if present
             if (guessed != "") {
                 ESP_LOGI("Camera.Config.Pinout", "Restoring guessed pinout: %s", guessed.c_str());
 
-                return setFromName(guessed);
+                return set(guessed);
             }
 
             String next = nextInSequence();
             ESP_LOGI("Camera.Config.Pinout", "Guessing pinout: %s", next.c_str());
             prefs.put(PREF_KEY_PINOUT_GUESS, next);
-            setFromName(next);
+            set(next);
 
             if (!init()) {
                 ESP_LOGW("Pinout", "Can't init with pinout %s", next.c_str());
@@ -122,27 +132,27 @@ namespace espkit::cam {
             return true;
         }
 
-        inline void aithinker() { setFromName("aithinker"); }
+        inline void aithinker() { set("aithinker"); }
 
-        inline void xiao() { setFromName("xiao"); }
+        inline void xiao() { set("xiao"); }
 
-        inline void wroom_s3() { setFromName("wroom_s3"); }
+        inline void wroom_s3() { set("wroom_s3"); }
 
-        inline void ttgo_plus() { setFromName("ttgo_plus"); }
+        inline void ttgo_plus() { set("ttgo_plus"); }
 
-        inline void ttgo_pir() { setFromName("ttgo_pir"); }
+        inline void ttgo_pir() { set("ttgo_pir"); }
 
-        inline void m5_default() { setFromName("m5_default"); }
+        inline void m5_default() { set("m5_default"); }
 
-        inline void m5_fisheye() { setFromName("m5_fisheye"); }
+        inline void m5_fisheye() { set("m5_fisheye"); }
 
-        inline void m5_timerx() { setFromName("m5_timerx"); }
+        inline void m5_timerx() { set("m5_timerx"); }
 
-        inline void espeye() { setFromName("espeye"); }
+        inline void espeye() { set("espeye"); }
 
-        inline void espeye_s3() { setFromName("espeye_s3"); }
+        inline void espeye_s3() { set("espeye_s3"); }
 
-        inline void wrover() { setFromName("wrover"); }
+        inline void wrover() { set("wrover"); }
 
     protected:
 

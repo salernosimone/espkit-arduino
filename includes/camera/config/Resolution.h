@@ -9,7 +9,7 @@ using espkit::cam::resolution::Definition;
 using espkit::cam::resolution::supportedResolutions;
 using espkit::cam::resolution::supportedResolutionsCount;
 
-namespace espkit::cam {
+namespace espkit::cam::config {
     /**
      * Frame resolution
      */
@@ -51,7 +51,12 @@ namespace espkit::cam {
          * Set resolution from name
          * @param name
          */
-        bool setFromName(const String &name) {
+        bool set(const String &name) {
+            if (name == "prompt") {
+                prompt();
+                return true;
+            }
+
             for (uint8_t i = 0; i < supportedResolutionsCount; i++) {
                 if (supportedResolutions[i]->matches(name)) {
                     const Definition *resolution = supportedResolutions[i];
@@ -80,7 +85,7 @@ namespace espkit::cam {
             const String resolution = serialkit.promptChoice("Select frame resolution:", (String *) choices,
                                                              supportedResolutionsCount);
 
-            setFromName(resolution);
+            set(resolution);
             ESP_LOGI("Camera.Config.Resolution",
                      "You can skip this step in your sketch by adding camera.config.resolution.%s();", name.c_str());
         }
@@ -106,55 +111,55 @@ namespace espkit::cam {
             set(FRAMESIZE_INVALID, width, height);
         }
 
-        inline void yolo() { setFromName("yolo"); }
+        inline void yolo() { set("yolo"); }
 
-        inline void qqvga() { setFromName("qqvga"); }
+        inline void qqvga() { set("qqvga"); }
 
-        inline void yoloxl() { setFromName("yoloxl"); }
+        inline void yoloxl() { set("yoloxl"); }
 
-        inline void qcif() { setFromName("qcif"); }
+        inline void qcif() { set("qcif"); }
 
-        inline void hqvga() { setFromName("hqvga"); }
+        inline void hqvga() { set("hqvga"); }
 
-        inline void square() { setFromName("square"); }
+        inline void square() { set("square"); }
 
-        inline void qvga() { setFromName("qvga"); }
+        inline void qvga() { set("qvga"); }
 
-        inline void squarexl() { setFromName("squarexl"); }
+        inline void squarexl() { set("squarexl"); }
 
-        inline void cif() { setFromName("cif"); }
+        inline void cif() { set("cif"); }
 
-        inline void hvga() { setFromName("hvga"); }
+        inline void hvga() { set("hvga"); }
 
-        inline void vga() { setFromName("vga"); }
+        inline void vga() { set("vga"); }
 
-        inline void svga() { setFromName("svga"); }
+        inline void svga() { set("svga"); }
 
-        inline void xga() { setFromName("xga"); }
+        inline void xga() { set("xga"); }
 
-        inline void hd() { setFromName("hd"); }
+        inline void hd() { set("hd"); }
 
-        inline void sxga() { setFromName("sxga"); }
+        inline void sxga() { set("sxga"); }
 
-        inline void uxga() { setFromName("uxga"); }
+        inline void uxga() { set("uxga"); }
 
-        inline void fhd() { setFromName("fhd"); }
+        inline void fhd() { set("fhd"); }
 
-        inline void p_hd() { setFromName("p_hd"); }
+        inline void p_hd() { set("p_hd"); }
 
-        inline void p_3mp() { setFromName("p_3mp"); }
+        inline void p_3mp() { set("p_3mp"); }
 
-        inline void qxga() { setFromName("qxga"); }
+        inline void qxga() { set("qxga"); }
 
-        inline void qhd() { setFromName("qhd"); }
+        inline void qhd() { set("qhd"); }
 
-        inline void wqxga() { setFromName("wqxga"); }
+        inline void wqxga() { set("wqxga"); }
 
-        inline void p_fhd() { setFromName("p_fhd"); }
+        inline void p_fhd() { set("p_fhd"); }
 
-        inline void qsxga() { setFromName("qsxga"); }
+        inline void qsxga() { set("qsxga"); }
 
-        inline void pi() { setFromName("pi"); }
+        inline void pi() { set("pi"); }
 
     protected:
         String name;

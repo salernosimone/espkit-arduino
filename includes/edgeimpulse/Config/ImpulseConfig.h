@@ -1,6 +1,8 @@
 #pragma once
 
-#include "./Confidence.h"
+#include "../../support/Confidence.h"
+
+using espkit::support::Confidence;
 
 namespace espkit::edgeimpulse::config {
     /**

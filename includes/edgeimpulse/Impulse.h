@@ -4,7 +4,7 @@
 #include <edge-impulse-sdk/dsp/numpy_types.h>
 #include <edge-impulse-sdk/dsp/image/processing.hpp>
 #include <edge-impulse-sdk/classifier/ei_classifier_types.h>
-#include "../support/traits/HasStatus.h"
+#include "../support/HasOpStatus.h"
 #include "./Config/ImpulseConfig.h"
 
 using ei::signal_t;

@@ -5,7 +5,7 @@
 #include <soc/rtc_cntl_reg.h>
 
 
-namespace espkit::cam {
+namespace espkit::cam::config {
     /**
      * Disable brownout detector
      * (often triggers on AiThinker cam)

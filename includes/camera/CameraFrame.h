@@ -4,10 +4,11 @@
 #include <Arduino.h>
 #include <esp_camera.h>
 #include "../idf/xLock.h"
-#include "../support/traits/HasStatus.h"
+#include "../support/HasOpStatus.h"
 #include "../video/Frame.h"
 
 using espkit::idf::xLock;
+using espkit::support::Status;
 using espkit::support::HasStatus;
 using espkit::video::Frame;
 
@@ -54,10 +55,6 @@ namespace espkit::cam {
 
             setBytes(fb->buf, fb->len);
             setDimensions(w, h);
-
-            // camera captures RGB565 with swapped bytes
-            if (fb->len == w * h * 2)
-                swapBytes();
 
             return succeed();
         }

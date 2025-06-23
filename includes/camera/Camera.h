@@ -1,12 +1,14 @@
 #pragma once
 
-#include "../support/traits/HasStatus.h"
+#include "../support/HasOpStatus.h"
 #include "./config/Config.h"
 #include "./Sensor.h"
 #include "./CameraFrame.h"
 
+using espkit::support::Status;
 using espkit::support::HasStatus;
 using espkit::cam::CameraFrame;
+using espkit::cam::config::Config;
 
 /**
  * Camera interface
@@ -59,6 +61,11 @@ namespace espkit::cam {
          */
         CameraFrame &grab() {
             frame.grab(config.resolution.width, config.resolution.height);
+
+            // camera captures RGB565 with swapped bytes
+            // fix it if specified in config
+            if (frame.isRGB() && config.byteOrder.shouldSwap)
+                frame.swapBytes();
 
             return frame;
         }

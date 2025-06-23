@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-namespace espkit::support {
+namespace esptoolkit {
     /**
      * A simple dictionary
      */

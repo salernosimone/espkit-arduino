@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../functions/swapBytes.h"
+
 namespace espkit::video {
     /**
      * A basic frame (data + dimensions)
@@ -97,13 +99,7 @@ namespace espkit::video {
          * Swap uint16_t bytes order
          */
         void swapBytes() {
-            uint16_t *bytes = u16();
-
-            if (bytes == NULL)
-                return;
-            
-            for (size_t i = 0, count = bytesCount / 2; i < count; i++)
-                bytes[i] = __builtin_bswap16(bytes[i]);
+            espkit::functions::swapBytes(u16(), bytesCount / 2);
         }
 
     protected:

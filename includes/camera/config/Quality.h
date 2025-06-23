@@ -1,7 +1,7 @@
 #ifndef ELOQUENTESP32_INCLUDE_QUALITY_H
 #define ELOQUENTESP32_INCLUDE_QUALITY_H
 
-namespace espkit::cam {
+namespace espkit::cam::config {
     /**
      * Jpeg quality
      */
@@ -30,16 +30,11 @@ namespace espkit::cam {
          * @param q
          */
         void set(String q) {
-            if (q == "best")
-                best();
-            else if (q == "high")
-                high();
-            else if (q == "mid")
-                mid();
-            else if (q == "low")
-                low();
-            else if (q == "worst")
-                worst();
+            if (q == "best") best();
+            else if (q == "high") high();
+            else if (q == "mid") mid();
+            else if (q == "low") low();
+            else if (q == "worst") worst();
             else {
                 // try to parse as number
                 int8_t value = q.toInt();

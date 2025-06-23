@@ -2,9 +2,10 @@
 
 #include <Arduino.h>
 #include "../support/Str.h"
-#include "../support/traits/HasStatus.h"
+#include "../support/HasOpStatus.h"
 
 using espkit::support::Str;
+using espkit::support::Status;
 using espkit::support::HasStatus;
 
 namespace espkit::idf {

@@ -3,7 +3,7 @@
 
 #include <esp_camera.h>
 
-namespace espkit::cam {
+namespace espkit::cam::config {
     /**
      * Pixel format (jpeg, rgb565, rgb888...)
      */
@@ -19,10 +19,21 @@ namespace espkit::cam {
         }
 
         /**
+         * Set from name
+         * @param format
+         */
+        void set(const String &format) {
+            if (format == "jpeg") jpeg();
+            else if (format == "gray") gray();
+            else if (format == "rgb") rgb();
+            else if (format == "raw") raw();
+            else ESP_LOGE("Camera.Config.Pixformat", "Unknown format: %s", format.c_str());
+        }
+
+        /**
          *
          */
         void jpeg() {
-            ESP_LOGD("Camera.Config", "JPEG pixformat enabled");
             format = PIXFORMAT_JPEG;
         }
 
@@ -30,7 +41,6 @@ namespace espkit::cam {
          *
          */
         void gray() {
-            ESP_LOGD("Camera.Config", "Grayscale pixformat enabled");
             format = PIXFORMAT_GRAYSCALE;
         }
 
@@ -38,7 +48,6 @@ namespace espkit::cam {
          *
          */
         void rgb() {
-            ESP_LOGD("Camera.Config", "RGB 565 pixformat enabled");
             format = PIXFORMAT_RGB565;
         }
 
@@ -46,7 +55,6 @@ namespace espkit::cam {
          *
          */
         void raw() {
-            ESP_LOGD("Camera.Config", "RGB 888 pixformat enabled");
             format = PIXFORMAT_RGB888;
         }
     };
